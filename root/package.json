@@ -1,0 +1,34 @@
+{
+  "name": "<%= S(name).slugify().value() %>",
+  "description": "<%= description %>",
+  "version": "0.0.1",
+  "author": "<%= github_username %>",
+  "ava": {
+    "verbose": "true"
+  },
+  "bugs": "https://github.com/<%= github_username %>/<%= S(name).slugify().value() %>/issues",
+  "dependencies": {
+    "babel-preset-latest": "^6.14.0",<% if (production) { %>
+    "image-webpack-loader": "^2.0.0",<% } %>
+    "spike-css-standards": "^0.1.0",
+    "spike-html-standards": "^0.3.5"<% if (production) { %>,
+    "webpack": "^1.13.1"<% } %>
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "rimraf": "^2.5.4",
+    "snazzy": "^4.0.1",
+    "spike-core": "^0.11.2",
+    "standard": "^8.0.0"
+  },
+  "homepage": "https://github.com/<%= github_username %>/<%= S(name).slugify().value() %>",
+  "main": "app.js",
+  "private": "true",
+  "repository": "https://github.com/<%= github_username %>/<%= S(name).slugify().value() %>",
+  "scripts": {
+    "lint": "standard | snazzy",
+    "precommit": "npm run lint -s",
+    "pretest": "npm run lint -s",
+    "test": "NODE_ENV=test ava"
+  }
+}
