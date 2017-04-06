@@ -1,4 +1,4 @@
-const htmlStandards = require('spike-html-standards')
+const htmlStandards = require('reshape-standard')
 const cssStandards = require('spike-css-standards')
 const {UglifyJsPlugin} = require('webpack').optimize
 
