@@ -2,7 +2,7 @@ const path = require('path')
 const test = require('ava')
 const Sprout = require('sprout')
 const Spike = require('spike-core')
-const rimraf = require('rimraf-promise')
+const rimraf = require('rmfr')
 const tmpdir = require('os-tmpdir')
 const W = require('when')
 const node = require('when/node')
@@ -10,13 +10,12 @@ const {exec} = require('child_process')
 
 const tplTestPath = path.join(__dirname, 'example')
 
-test.cb.before((t) => {
-  rimraf(tplTestPath, () => { t.end() })
-})
+test.afterEach((t) => rimraf(tplTestPath))
 
 test.skip('compile test', (t) => {
-  const project = new Spike({ root: tplTestPath })
+  const project = new Spike({ root: tplTestPath, env: 'production' })
   project.on('error', console.error)
+  project.on('warning', console.error)
   project.on('compile', () => console.log('done!'))
   project.compile()
 })
@@ -44,7 +43,7 @@ test('initializes with sprout, compiles with spike', t => {
     })
     .then(() => { t.is(true, true) })
     // .finally(() => {
-    //   return rimraf(tplTestPath).then(sprout.remove.bind(sprout, tplName))
+    //   return sprout.remove.bind(sprout, tplName)
     // })
 })
 
@@ -71,7 +70,7 @@ test('compiles with production setting', t => {
     })
     .then(() => { t.is(true, true) })
     // .finally(() => {
-    //   return rimraf(tplTestPath).then(sprout.remove.bind(sprout, tplName))
+    //   return sprout.remove.bind(sprout, tplName)
     // })
 })
 
